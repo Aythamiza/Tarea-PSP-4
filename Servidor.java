@@ -82,24 +82,36 @@ class Servidor extends Thread {
                                 flujo_salida.writeUTF(miDir);
                                 estado = 1;
                                 break;
-
                             } else if (comando.equals("ver")) {
-                                //falta que el cliente pueda ver el archivo
-                                flujo_salida.writeUTF("Introduce el nombre de archivo a ver");
-                                String nombreDelArchivo = flujo_entrada.readUTF();
-                                File archivo = new File(nombreDelArchivo);
-                                FileReader fr = new FileReader(archivo);
-                                BufferedReader br = new BufferedReader(fr);
-                                estado = 1;
+
+                                // Voy al estado 3 para mostrar el ficher
+                                estado = 3;
+
                                 break;
 
+                            } else {
+                                estado = 1;
                             }
+
+                            break;
+
+                        case 3:
+
+                            //falta que el cliente pueda ver el archivo
+                            flujo_salida.writeUTF("Introduce el nombre de archivo a ver");
+                            String nombreDelArchivo = flujo_entrada.readUTF();
+                            File archivo = new File(nombreDelArchivo);
+                            FileReader fr = new FileReader(archivo);
+                            BufferedReader br = new BufferedReader(fr);
+                            estado = 1;
+                            break;
+
                     }
 
                 } while (estado != -1);
 
                 skCliente.close();
-
+                
             } else {
                 flujo_salida.writeUTF("Usuario y contraseña inconrectos");
 

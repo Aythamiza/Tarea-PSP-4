@@ -76,21 +76,31 @@ class Cliente {
                         }
 
                         if ("ver".equals(escribirOpcion)) {
-                            String laOpcionElegida = flujo_entrada.readUTF();
-
-                            System.out.println(laOpcionElegida);
-
-                            String elergirArchivo = sc.next();
-                            
-                            flujo_salida.writeUTF(elergirArchivo);
-                            
-                            
-                            estado = 1;
+                            estado = 3;
 
                             break;
 
-                        } else if (comando.equals("exit")) {
+                        }
+                    case 3:
 
+                        String laOpcionElegida = flujo_entrada.readUTF();
+
+                        System.out.println(laOpcionElegida);
+
+                        String elergirArchivo = sc.next();
+
+                        flujo_salida.writeUTF(elergirArchivo);
+
+                        if (comando.equals("exit")) {
+                            laOpcionElegida = flujo_entrada.readUTF();
+
+                            System.out.println(laOpcionElegida);
+
+                            elergirArchivo = sc.next();
+
+                            flujo_salida.writeUTF(elergirArchivo);
+                            
+                             sCliente.close();
                             estado = -1;
                             break;
 
@@ -99,10 +109,15 @@ class Cliente {
                 }
 
             } while (estado != -1);
+        
+        
+        
 
-            sCliente.close();
+           
 
-        } catch (Exception e) {
+        }
+        
+        catch (Exception e) {
 
             System.out.println(e.getMessage());
 
