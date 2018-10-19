@@ -85,7 +85,7 @@ class Servidor extends Thread {
                             } else if (comando.equals("ver")) {
 
                                 // Voy al estado 3 para mostrar el ficher
-                                estado = 3;
+                                estado = 2;
 
                                 break;
 
@@ -95,7 +95,7 @@ class Servidor extends Thread {
 
                             break;
 
-                        case 3:
+                        case 2:
 
                             //falta que el cliente pueda ver el archivo
                             flujo_salida.writeUTF("Introduce el nombre de archivo a ver");
@@ -104,9 +104,17 @@ class Servidor extends Thread {
                             FileReader fr = new FileReader(archivo);
                             BufferedReader br = new BufferedReader(fr);
                             estado = 1;
-                            break;
-
-                    }
+                            
+                            if (comando.equals("exit")) {
+                            
+                              estado = -1;
+                             break;
+                    
+                       
+                          
+                        }    
+                            }
+                           
 
                 } while (estado != -1);
 
