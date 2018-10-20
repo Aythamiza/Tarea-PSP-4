@@ -1,6 +1,5 @@
 
 import java.io.*;
-
 import java.net.*;
 import java.util.Scanner;
 
@@ -80,12 +79,16 @@ class Cliente {
 
                         flujo_salida.writeUTF(elergirArchivo);
                         
+                        int numeroLineas = Integer.parseInt( flujo_entrada.readUTF());
+                        int num = 0;
                         String contenido;
                         do {  
                             contenido=flujo_entrada.readUTF();
                             System.out.println(contenido);
+                                  
+                            num ++;
                             
-                        } while (contenido==null);
+                        } while (numeroLineas==num);
                            
                             estado=1;
                         

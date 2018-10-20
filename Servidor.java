@@ -1,6 +1,5 @@
 
 import java.io.*;
-
 import java.net.*;
 
 class Servidor extends Thread {
@@ -103,11 +102,19 @@ class Servidor extends Thread {
                             FileReader fr = new FileReader(archivo);
                             BufferedReader br = new BufferedReader(fr);
                             String cadena;
+                            int lNumerodeLineas = 0;
+                            
                             while ((cadena = br.readLine()) != null) {
-
-                                flujo_salida.writeUTF(cadena);
+                                lNumerodeLineas++;                  
                             }
-
+                            flujo_salida.writeUTF(String.valueOf(lNumerodeLineas));
+                            
+                            while ((cadena = br.readLine()) != null) {
+                                  flujo_salida.writeUTF(cadena);
+                            }
+                            
+                     
+                            
                             estado=1;
                             break;
                             }
