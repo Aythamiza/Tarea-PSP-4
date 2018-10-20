@@ -38,7 +38,7 @@ class Cliente {
 
             flujo_salida.writeUTF(contraseña);
 
-            String leerOpcion = flujo_entrada.readUTF();
+          
 
             int estado = 1;
 
@@ -48,7 +48,8 @@ class Cliente {
 
                 switch (estado) {
                     case 1:
-
+                        String leerOpcion = flujo_entrada.readUTF();
+                     
                         System.out.println(leerOpcion);
 
                         String escribirOpcion = sc.next();
@@ -71,7 +72,8 @@ class Cliente {
                         }
 
                         if ("ver".equals(escribirOpcion)) {
-                              String laOpcionElegida = flujo_entrada.readUTF();
+                            
+                       String laOpcionElegida = flujo_entrada.readUTF();
 
                         System.out.println(laOpcionElegida);
 
@@ -79,17 +81,25 @@ class Cliente {
 
                         flujo_salida.writeUTF(elergirArchivo);
                         
-                        int numeroLineas = Integer.parseInt( flujo_entrada.readUTF());
-                        int num = 0;
-                        String contenido;
+                      
+                          
+                            
+                      String contenido = " ";
+                        
+                        
                         do {  
                             contenido=flujo_entrada.readUTF();
                             System.out.println(contenido);
-                                  
-                            num ++;
+
                             
-                        } while (numeroLineas==num);
-                           
+                        } while (contenido != null);
+                        
+                        
+                        
+                        
+                        
+                        
+                           System.err.println(" me he saltado");
                             estado=1;
                         
                             break;
@@ -97,6 +107,7 @@ class Cliente {
                         } else if (comando.equals("exit")) {
 
                             estado = -1;
+                            
                             break;
 
                         }
@@ -105,7 +116,7 @@ class Cliente {
 
             } while (estado != -1);
         
-        
+         System.exit(0); 
 
            
 

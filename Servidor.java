@@ -49,7 +49,6 @@ class Servidor extends Thread {
             DataOutputStream flujo_salida = new DataOutputStream(skCliente.getOutputStream());
 
             // ATENDER PETICIÓN DEL CLIENTE
-            int encontrado = 0;
             String usuario = new String("Juan");
             String contraseña = new String("Secreta");
 
@@ -91,32 +90,34 @@ class Servidor extends Thread {
                                 }
 
                                 estado = 1;
+
                                 break;
+
                             } else if (comando.equals("ver")) {
 
-                            flujo_salida.writeUTF("Introduce el nombre de archivo a ver");
-                            String nombreDelArchivo = flujo_entrada.readUTF();
-                            System.out.println("El cliente quiere leer el archivo: " + nombreDelArchivo);
+                                flujo_salida.writeUTF("Introduce el nombre de archivo a ver");
 
-                            File archivo = new File("./src" + nombreDelArchivo);
-                            FileReader fr = new FileReader(archivo);
-                            BufferedReader br = new BufferedReader(fr);
-                            String cadena;
-                            int lNumerodeLineas = 0;
-                            
-                            while ((cadena = br.readLine()) != null) {
-                                lNumerodeLineas++;                  
-                            }
-                            flujo_salida.writeUTF(String.valueOf(lNumerodeLineas));
-                            
-                            while ((cadena = br.readLine()) != null) {
-                                  flujo_salida.writeUTF(cadena);
-                            }
-                            
-                     
-                            
-                            estado=1;
-                            break;
+                                String nombreDelArchivo = flujo_entrada.readUTF();
+
+                                System.out.println("El cliente quiere leer el archivo: " + nombreDelArchivo);
+
+                                File archivo = new File("./src/" + nombreDelArchivo);
+                                FileReader fr = new FileReader(archivo);
+                                BufferedReader br = new BufferedReader(fr);
+
+                                String cadena;
+
+                                while ((cadena = br.readLine()) != null) {
+                                    flujo_salida.writeUTF(cadena);
+                                    System.out.println(cadena);
+
+                                }
+                                System.out.println("Archivo enviado correcto");
+
+                                estado = 1;
+
+                                break;
+
                             }
                             if (comando.equals("exit")) {
 
@@ -129,6 +130,8 @@ class Servidor extends Thread {
                 } while (estado != -1);
 
                 skCliente.close();
+
+                System.out.println("Cliente desconectado");
 
             } else {
                 flujo_salida.writeUTF("Usuario y contraseña inconrectos");
