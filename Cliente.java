@@ -116,7 +116,7 @@ class Cliente {
 
             } while (estado != -1);
         
-         System.exit(0); 
+            
 
            
 

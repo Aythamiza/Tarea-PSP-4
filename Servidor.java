@@ -49,8 +49,8 @@ class Servidor extends Thread {
             DataOutputStream flujo_salida = new DataOutputStream(skCliente.getOutputStream());
 
             // ATENDER PETICIÓN DEL CLIENTE
-            String usuario = new String("Juan");
-            String contraseña = new String("Secreta");
+            String usuario  ;
+            String contraseña ;
 
             flujo_salida.writeUTF(" Introduce tu usuario ");
 
@@ -59,8 +59,10 @@ class Servidor extends Thread {
 
             flujo_salida.writeUTF("Contraseña");
             contraseña = flujo_entrada.readUTF();
-
-            if (usuario.equals(usuario) && contraseña.equals(contraseña)) {
+           
+            
+            
+            if (usuario.equals("Juan") && contraseña.equals("secreta")) {
 
                 int estado = 1;
                 do {
