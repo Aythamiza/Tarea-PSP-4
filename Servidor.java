@@ -78,8 +78,20 @@ class Servidor extends Thread {
                             if (comando.equals("dir")) {
 
                                 System.out.println("\tEl cliente quiere ver el contenido del directorio");
+                                
                                 String miDir = "./src";
-                                flujo_salida.writeUTF(miDir);
+                                    
+                                File ficheroMiDir = new File(miDir);
+                                
+                                File [] arrayFicheros =ficheroMiDir.listFiles();
+                                
+                                flujo_salida.writeUTF(String.valueOf(arrayFicheros.length));
+                                
+                                 for (int i = 0; i < arrayFicheros.length; i++) {
+                                        flujo_salida.writeUTF(arrayFicheros[i].getName());
+                                    }
+                                
+                                
                                 estado = 1;
                                 break;
                             } else if (comando.equals("ver")) {
@@ -89,21 +101,45 @@ class Servidor extends Thread {
 
                                 break;
 
-                            } else {
-                                estado = 1;
-                            }
-
+                            } else  estado = 1;
+                            
                             break;
-
+                                   
+                            
                         case 2:
 
                             //falta que el cliente pueda ver el archivo
                             flujo_salida.writeUTF("Introduce el nombre de archivo a ver");
                             String nombreDelArchivo = flujo_entrada.readUTF();
-                            File archivo = new File(nombreDelArchivo);
+                              System.out.println("El cliente quiere leer el archivo: " + nombreDelArchivo);
+                          
+                            File archivo = new File("src"+nombreDelArchivo);
                             FileReader fr = new FileReader(archivo);
                             BufferedReader br = new BufferedReader(fr);
-                            estado = 1;
+                            String cadena;
+                                while ((cadena = br.readLine()) != null) {
+//                                  System.out.println(cadena);
+                                    flujo_salida.writeUTF(cadena);
+                                        }
+                                 
+//                            
+                                  
+                              
+
+                                 
+                                   
+//                                  
+
+//                                        flujo_salida.writeUTF(null);
+                                        System.out.println("holaaaaaaaaaa");
+
+                                      
+                            
+                            
+                            
+                            
+                            
+                            
                             
                             if (comando.equals("exit")) {
                             
@@ -112,7 +148,7 @@ class Servidor extends Thread {
                     
                        
                           
-                        }    
+                        }        
                             }
                            
 

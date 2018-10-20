@@ -58,16 +58,16 @@ class Cliente {
 
                         if ("dir".equals(escribirOpcion)) {
 
-                            String laOpcionElegida = flujo_entrada.readUTF();
-
-                            File miDir = new File(laOpcionElegida);
-
-                            File[] ficheros = miDir.listFiles();
-
-                            for (int x = 0; x < ficheros.length; x++) {
-                                System.out.println(ficheros[x].getName());
-
+                            String tamañodelarray = flujo_entrada.readUTF();
+                            
+                            int num = Integer.parseInt(tamañodelarray);
+                            
+                              for (int i = 0; i < num; i++) {
+                                String datosdelarray = flujo_entrada.readUTF();
+                                System.out.println(datosdelarray);
                             }
+                            
+                          
 
                             estado = 1;
 
@@ -81,6 +81,8 @@ class Cliente {
                             break;
 
                         }
+                        // me falta solo el ver que no logro mostralo en cliente
+                        
                     case 3:
 
                         String laOpcionElegida = flujo_entrada.readUTF();
