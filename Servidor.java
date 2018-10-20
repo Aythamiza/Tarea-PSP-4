@@ -51,8 +51,8 @@ class Servidor extends Thread {
 
             // ATENDER PETICIÓN DEL CLIENTE
             int encontrado = 0;
-            String usuario = new String();
-            String contraseña = new String();
+            String usuario = new String("Juan");
+            String contraseña = new String("Secreta");
 
             flujo_salida.writeUTF(" Introduce tu usuario ");
 
@@ -62,7 +62,7 @@ class Servidor extends Thread {
             flujo_salida.writeUTF("Contraseña");
             contraseña = flujo_entrada.readUTF();
 
-            if (usuario.equals("Juan") && contraseña.equals("Secreta")) {
+            if (usuario.equals(usuario) && contraseña.equals(contraseña)) {
 
                 int estado = 1;
                 do {
@@ -71,91 +71,58 @@ class Servidor extends Thread {
                     switch (estado) {
                         case 1:
 
-                            flujo_salida.writeUTF("Introduce comando (ver/dir/exit)");
+                            flujo_salida.writeUTF("Introduce comando (dir/ver/exit)");
 
                             comando = flujo_entrada.readUTF();
 
                             if (comando.equals("dir")) {
 
                                 System.out.println("\tEl cliente quiere ver el contenido del directorio");
-                                
+
                                 String miDir = "./src";
-                                    
+
                                 File ficheroMiDir = new File(miDir);
-                                
-                                File [] arrayFicheros =ficheroMiDir.listFiles();
-                                
+
+                                File[] arrayFicheros = ficheroMiDir.listFiles();
+
                                 flujo_salida.writeUTF(String.valueOf(arrayFicheros.length));
-                                
-                                 for (int i = 0; i < arrayFicheros.length; i++) {
-                                        flujo_salida.writeUTF(arrayFicheros[i].getName());
-                                    }
-                                
-                                
+
+                                for (int i = 0; i < arrayFicheros.length; i++) {
+                                    flujo_salida.writeUTF(arrayFicheros[i].getName());
+                                }
+
                                 estado = 1;
                                 break;
                             } else if (comando.equals("ver")) {
 
-                                // Voy al estado 3 para mostrar el ficher
-                                estado = 2;
-
-                                break;
-
-                            } else  estado = 1;
-                            
-                            break;
-                                   
-                            
-                        case 2:
-
-                            //falta que el cliente pueda ver el archivo
                             flujo_salida.writeUTF("Introduce el nombre de archivo a ver");
                             String nombreDelArchivo = flujo_entrada.readUTF();
-                              System.out.println("El cliente quiere leer el archivo: " + nombreDelArchivo);
-                          
-                            File archivo = new File("src"+nombreDelArchivo);
+                            System.out.println("El cliente quiere leer el archivo: " + nombreDelArchivo);
+
+                            File archivo = new File("./src" + nombreDelArchivo);
                             FileReader fr = new FileReader(archivo);
                             BufferedReader br = new BufferedReader(fr);
                             String cadena;
-                                while ((cadena = br.readLine()) != null) {
-//                                  System.out.println(cadena);
-                                    flujo_salida.writeUTF(cadena);
-                                        }
-                                 
-//                            
-                                  
-                              
+                            while ((cadena = br.readLine()) != null) {
 
-                                 
-                                   
-//                                  
-
-//                                        flujo_salida.writeUTF(null);
-                                        System.out.println("holaaaaaaaaaa");
-
-                                      
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            if (comando.equals("exit")) {
-                            
-                              estado = -1;
-                             break;
-                    
-                       
-                          
-                        }        
+                                flujo_salida.writeUTF(cadena);
                             }
-                           
+
+                            estado=1;
+                            break;
+                            }
+                            if (comando.equals("exit")) {
+
+                                estado = -1;
+                                break;
+
+                            }
+                    }
 
                 } while (estado != -1);
 
                 skCliente.close();
-                
+
             } else {
                 flujo_salida.writeUTF("Usuario y contraseña inconrectos");
 

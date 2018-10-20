@@ -66,43 +66,33 @@ class Cliente {
                                 String datosdelarray = flujo_entrada.readUTF();
                                 System.out.println(datosdelarray);
                             }
-                            
-                          
-
+                              
                             estado = 1;
-
                             break;
-
                         }
 
                         if ("ver".equals(escribirOpcion)) {
-                            estado = 3;
-
-                            break;
-
-                        }
-                        // me falta solo el ver que no logro mostralo en cliente
-                        
-                    case 3:
-
-                        String laOpcionElegida = flujo_entrada.readUTF();
+                              String laOpcionElegida = flujo_entrada.readUTF();
 
                         System.out.println(laOpcionElegida);
 
                         String elergirArchivo = sc.next();
 
                         flujo_salida.writeUTF(elergirArchivo);
-
-                        if (comando.equals("exit")) {
-                            laOpcionElegida = flujo_entrada.readUTF();
-
-                            System.out.println(laOpcionElegida);
-
-                            elergirArchivo = sc.next();
-
-                            flujo_salida.writeUTF(elergirArchivo);
+                        
+                        String contenido;
+                        do {  
+                            contenido=flujo_entrada.readUTF();
+                            System.out.println(contenido);
                             
-                             sCliente.close();
+                        } while (contenido==null);
+                           
+                            estado=1;
+                        
+                            break;
+                               
+                        } else if (comando.equals("exit")) {
+
                             estado = -1;
                             break;
 
@@ -111,7 +101,6 @@ class Cliente {
                 }
 
             } while (estado != -1);
-        
         
         
 
